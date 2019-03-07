@@ -1,8 +1,7 @@
 # HW1 Report
 
 ## Training cycleGAN
-<img src="results/img/screenshot1.png" width="35%"/>
-<img src="results/img/screenshot2.png" width="35%"/>
+<img src="results/img/screenshot1.png" width="35%"/><img src="results/img/screenshot2.png" width="35%"/>
 
 ## Inference cycleGAN in personal image
 我們train了兩組dataset，facades跟apple2orange。下面是過程與結果。
