@@ -1,77 +1,49 @@
-# Homework 1 (Color-Transfer and Texture-Transfer)
+# HW1 Report
 
-A clean and readable Pytorch implementation of CycleGAN (https://arxiv.org/abs/1703.10593)
-## Assign
+## Training cycleGAN
+<img src="../results/img/screenshot1.png" width="40%"/>
+<img src="../results/img/screenshot2.png" width="40%"/>
 
-1.  20% (Training cycleGAN)
-2.  10% (Inference cycleGAN in personal image)
-3.  20% (Compare with other method)
-4.  30% (Assistant) 
-5.  20% (Mutual evaluation)
+## Inference cycleGAN in personal image
+我們train了兩組dataset，facades跟apple2orange。下面是過程與結果。
 
-reference:
-[Super fast color transfer between images](https://github.com/jrosebr1/color_transfer)
+Inference
+我們先將原圖resize成256*256的A類圖片，之後轉換成B類圖片，最後再將B轉換回A類圖片觀察最終結果與原圖的差異。(最左邊是原圖A1，中間是B，右邊是A2)下面是我們在學校裡拍的一些建築物的照片。
 
-## Getting Started
-Please first install [Anaconda](https://anaconda.org) and create an Anaconda environment using the environment.yml file.
+* **Facades**  
+<img src="../results/img/Facades.png"/>
 
-```
-conda env create -f environment.yml
-```
+我們將最後轉出的圖片跟原圖做比較，發現圖片變得比較暗。我們推測是因為我們的有些圖片有大量的背景，像是馬路或是樹木，所以她轉換時有點混淆，導致整體圖片亮度下降。
 
-After you create the environment, activate it.
-```
-source activate hw1
-```
+我們也比較了不同epoch數的CycleGan。發現不同epoch數所產生的結果並沒有太大的差異。以下是我們跑出來的結果。
 
-Our current implementation only supports GPU so you need a GPU and need to have CUDA installed on your machine.
+* **Apple2orange**  
+<img src="../results/img/Apple2orange.png"/>
 
-## Training
-### 1. Download dataset
-
-```
-mkdir datasets
-bash ./download_dataset.sh <dataset_name>
-```
-Valid <dataset_name> are: apple2orange, summer2winter_yosemite, horse2zebra, monet2photo, cezanne2photo, ukiyoe2photo, vangogh2photo, maps, cityscapes, facades, iphone2dslr_flower, ae_photos
-
-Alternatively you can build your own dataset by setting up the following directory structure:
-
-    .
-    ├── datasets                   
-    |   ├── <dataset_name>         # i.e. apple2orange
-    |   |   ├── trainA             # Contains domain A images (i.e. apple)
-    |   |   ├── trainB             # Contains domain B images (i.e. orange) 
-    |   |   ├── testA              # Testing
-    |   |   └── testB              # Testing
-    
-### 2. Train
-```
-python train.py --dataroot datasets/<dataset_name>/ --cuda
-```
-This command will start a training session using the images under the *dataroot/train* directory with the hyperparameters that showed best results according to CycleGAN authors. 
-
-Both generators and discriminators weights will be saved ```./output/<dataset_name>/``` the output directory.
-
-If you don't own a GPU remove the --cuda option, although I advise you to get one!
+我們也測試了不同epoch轉換出來的效果，測試160 epoch跟180 epoch與原本的200 epoch的差異。看起來效果差不多，不過200 epoch的效果似乎好一點。
 
 
+## Compare with other method
+我們跑了另一篇paper
 
-## Testing
-The pre-trained file is on [Google drive](https://drive.google.com/open?id=17FREtttCyFpvjRJxd4v3VVlVAu__Y5do). Download the file and save it on  ```./output/<dataset_name>/netG_A2B.pth``` and ```./output/<dataset_name>/netG_B2A.pth```. 
- 
-```
-python test.py --dataroot datasets/<dataset_name>/ --cuda
-```
-This command will take the images under the ```dataroot/testA/``` and ```dataroot/testB/``` directory, run them through the generators and save the output under the ```./output/<dataset_name>/``` directories. 
+“Unsupervised Attention-guided Image-to-Image Translation”
+(https://arxiv.org/pdf/1806.02311.pdf)
 
-Examples of the generated outputs (default params) apple2orange, summer2winter_yosemite, horse2zebra dataset:
+這個Model 又稱為Attention Guided GAN
 
-![Alt text](./output/imgs/0167.png)
-![Alt text](./output/imgs/0035.png)
-![Alt text](./output/imgs/0111.png)
+Attention-guidedGAN相較於cycleGAN，額外多一個network訓練找出圖片的feature（也就是我們有興趣轉換的地方）。在CycleGan裡計算兩張圖片的差異是直接考慮整張圖片，然而在
+Attention-guidedGAN中，更注重在兩個features之間的差異。也就是說，DomainA的feature部分與DomainB的feature部分差異越小，GAN就會將該圖片對應到DomainB中差異最小的圖片。因此，相較於cycleGAN，Attention-guidedGAN在轉換重要部分時，可以避免將其他不重要部分也跟著轉換，使轉換的效果會比cycleGAN更自然。
 
+以下是我們附的Attention-guidedGAN的流程圖
 
+<img src="../results/img/AttentionGAN.png"/>
 
-## Acknowledgments
-Code is modified by [PyTorch-CycleGAN](https://github.com/aitorzip/PyTorch-CycleGAN). All credit goes to the authors of [CycleGAN](https://arxiv.org/abs/1703.10593), Zhu, Jun-Yan and Park, Taesung and Isola, Phillip and Efros, Alexei A.
+以下是我們用同樣圖片所跑出來的結果
+
+<img src="../results/img/othermethod.png"/>
+
+可以很明顯地看到，這四張圖片與cycleGAN的結果相比，attention-guidedGAN建築物的部分更加清晰，背景也有被保留下來，但是色調有點偏藍色。不過整體效果看起來更好。
+
+第一列跟第四列與cycleGAN最主要的差別是，cycleGAN的結果會導致馬路與樹木合成一整塊的黑色區域，但是在attention-guidedGAN裡面，樹木跟馬路都被很好的保存了下來。
+
+由此可見，attention-guidedGAN 可以比cycleGAN更好的保存圖片的背景部分。
