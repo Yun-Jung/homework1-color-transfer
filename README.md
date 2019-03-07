@@ -24,6 +24,7 @@ Inference時，
 
 ## Compare with other method
 我們跑了另一篇paper[“Unsupervised Attention-guided Image-to-Image Translation”](https://arxiv.org/pdf/1806.02311.pdf)
+
 這個Model 又稱為Attention Guided GAN
 
 Attention-guidedGAN相較於CycleGAN，額外多一個network訓練找出圖片的feature（也就是我們有興趣轉換的地方）。在CycleGan裡計算兩張圖片的差異是直接考慮整張圖片，然而在
