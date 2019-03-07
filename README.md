@@ -26,8 +26,7 @@ Inference 10
 ## Compare with other method
 我們跑了另一篇paper
 
-“Unsupervised Attention-guided Image-to-Image Translation”
-(https://arxiv.org/pdf/1806.02311.pdf)
+[“Unsupervised Attention-guided Image-to-Image Translation”](https://arxiv.org/pdf/1806.02311.pdf)
 
 這個Model 又稱為Attention Guided GAN
 
