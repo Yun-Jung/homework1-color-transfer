@@ -1,4 +1,4 @@
-
+import sys
 import argparse
 import itertools
 import os
@@ -55,10 +55,17 @@ if opt.cuda:
     netD_A.cuda()
     netD_B.cuda()
 
-netG_A2B.apply(weights_init_normal)
-netG_B2A.apply(weights_init_normal)
-netD_A.apply(weights_init_normal)
-netD_B.apply(weights_init_normal)
+if 'netG_A2B.pth' in os.listdir(out_path):
+    sys.stdout.write('Loading model from '+out_path)
+    netG_A2B.load_state_dict(torch.load(out_path+'netG_A2B.pth'))
+    netG_B2A.load_state_dict(torch.load(out_path+'netG_B2A.pth'))
+    netD_A.load_state_dict(torch.load(out_path+'netD_A.pth'))
+    netD_B.load_state_dict(torch.load(out_path+'netD_B.pth'))
+else:
+    netG_A2B.apply(weights_init_normal)
+    netG_B2A.apply(weights_init_normal)
+    netD_A.apply(weights_init_normal)
+    netD_B.apply(weights_init_normal)
 
 # Lossess
 criterion_GAN = torch.nn.MSELoss()
