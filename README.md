@@ -1,9 +1,9 @@
 # HW1 Report
 
-## Training cycleGAN
+## Training CycleGAN
 <img src="results/img/screenshot.png"/>
 
-## Inference cycleGAN in personal image
+## Inference CycleGAN in personal image
 我們train了兩組dataset，facades跟apple2orange。
 
 Inference 10
@@ -30,8 +30,8 @@ Inference 10
 
 這個Model 又稱為Attention Guided GAN
 
-Attention-guidedGAN相較於cycleGAN，額外多一個network訓練找出圖片的feature（也就是我們有興趣轉換的地方）。在CycleGan裡計算兩張圖片的差異是直接考慮整張圖片，然而在
-Attention-guidedGAN中，更注重在兩個features之間的差異。也就是說，DomainA的feature部分與DomainB的feature部分差異越小，GAN就會將該圖片對應到DomainB中差異最小的圖片。因此，相較於cycleGAN，Attention-guidedGAN在轉換重要部分時，可以避免將其他不重要部分也跟著轉換，使轉換的效果會比cycleGAN更自然。
+Attention-guidedGAN相較於CycleGAN，額外多一個network訓練找出圖片的feature（也就是我們有興趣轉換的地方）。在CycleGan裡計算兩張圖片的差異是直接考慮整張圖片，然而在
+Attention-guidedGAN中，更注重在兩個features之間的差異。也就是說，DomainA的feature部分與DomainB的feature部分差異越小，GAN就會將該圖片對應到DomainB中差異最小的圖片。因此，相較於CycleGAN，Attention-guidedGAN在轉換重要部分時，可以避免將其他不重要部分也跟著轉換，使轉換的效果會比CycleGAN更自然。
 
 以下是我們附的Attention-guidedGAN的流程圖
 
@@ -41,8 +41,8 @@ Attention-guidedGAN中，更注重在兩個features之間的差異。也就是�
 
 <img src="results/img/othermethod.png"/>
 
-可以很明顯地看到，這四張圖片與cycleGAN的結果相比，attention-guidedGAN建築物的部分更加清晰，背景也有被保留下來，但是色調有點偏藍色。不過整體效果看起來更好。
+可以很明顯地看到，這四張圖片與CycleGAN的結果相比，Attention-guidedGAN建築物的部分更加清晰，背景也有被保留下來，但是色調有點偏藍色。不過整體效果看起來更好。
 
-第一列跟第四列與cycleGAN最主要的差別是，cycleGAN的結果會導致馬路與樹木合成一整塊的黑色區域，但是在attention-guidedGAN裡面，樹木跟馬路都被很好的保存了下來。
+第一列跟第四列與CycleGAN最主要的差別是，CycleGAN的結果會導致馬路與樹木合成一整塊的黑色區域，但是在Attention-guidedGAN裡面，樹木跟馬路都被很好的保存了下來。
 
-由此可見，attention-guidedGAN 可以比cycleGAN更好的保存圖片的背景部分。
+由此可見，Attention-guidedGAN 可以比CycleGAN更好的保存圖片的背景部分。
