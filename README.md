@@ -5,10 +5,8 @@
 
 ## Inference CycleGAN in personal image
 我們train了兩組dataset，facades跟apple2orange。
-
 Inference時，
 我們先將原圖resize成256*256的A類圖片，之後轉換成B類圖片，最後再將B轉換回A類圖片觀察最終結果與原圖的差異。(最左邊是原圖A1，中間是B，右邊是A2)
-
 下面是我們在學校裡拍的一些建築物的照片。
 
 * **Facades**  
