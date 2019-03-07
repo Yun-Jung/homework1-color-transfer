@@ -25,7 +25,7 @@ Inference時，
 ## Compare with other method
 我們跑了另一篇paper[“Unsupervised Attention-guided Image-to-Image Translation”](https://arxiv.org/pdf/1806.02311.pdf)
 
-這個Model 又稱為Attention Guided GAN
+這個Model 又稱為Attention-guidedGAN
 
 Attention-guidedGAN相較於CycleGAN，額外多一個network訓練找出圖片的feature（也就是我們有興趣轉換的地方）。在CycleGan裡計算兩張圖片的差異是直接考慮整張圖片，然而在
 Attention-guidedGAN中，更注重在兩個features之間的差異。也就是說，DomainA的feature部分與DomainB的feature部分差異越小，GAN就會將該圖片對應到DomainB中差異最小的圖片。因此，相較於CycleGAN，Attention-guidedGAN在轉換重要部分時，可以避免將其他不重要部分也跟著轉換，使轉換的效果會比CycleGAN更自然。
