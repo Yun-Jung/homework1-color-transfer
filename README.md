@@ -4,22 +4,23 @@
 <img src="results/img/screenshot.png"/>
 
 ## Inference cycleGAN in personal image
-我們train了兩組dataset，facades跟apple2orange。下面是過程與結果。
+我們train了兩組dataset，facades跟apple2orange。
 
-Inference
-我們先將原圖resize成256*256的A類圖片，之後轉換成B類圖片，最後再將B轉換回A類圖片觀察最終結果與原圖的差異。(最左邊是原圖A1，中間是B，右邊是A2)下面是我們在學校裡拍的一些建築物的照片。
+Inference 10
+我們先將原圖resize成256*256的A類圖片，之後轉換成B類圖片，最後再將B轉換回A類圖片觀察最終結果與原圖的差異。(最左邊是原圖A1，中間是B，右邊是A2)
+
+下面是我們在學校裡拍的一些建築物的照片。
 
 * **Facades**  
 <img src="results/img/Facades.png"/>
 
 我們將最後轉出的圖片跟原圖做比較，發現圖片變得比較暗。我們推測是因為我們的有些圖片有大量的背景，像是馬路或是樹木，所以她轉換時有點混淆，導致整體圖片亮度下降。
 
-我們也比較了不同epoch數的CycleGan。發現不同epoch數所產生的結果並沒有太大的差異。以下是我們跑出來的結果。
 
 * **Apple2orange**  
 <img src="results/img/Apple2orange.png"/>
 
-我們也測試了不同epoch轉換出來的效果，測試160 epoch跟180 epoch與原本的200 epoch的差異。看起來效果差不多，不過200 epoch的效果似乎好一點。
+我們也比較了不同epoch數的CycleGan，發現不同epoch數所產生的結果並沒有太大的差異，結果顯示160 epoch跟180 epoch與原本的200 epoch的差異，看起來效果差不多，不過200 epoch的效果似乎好一點。
 
 
 ## Compare with other method
